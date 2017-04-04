@@ -1,0 +1,158 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>Geburtstage</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <style>
+    body {
+          background-color: linen;
+      }
+    #datepicker {
+      margin-top: 50px;
+      margin-left: 40%;
+  }
+    #btn_personen_anzeigen{
+      margin-left: 50%;
+      width: 50%;
+  }
+    #tabelle_ausgabe{
+      position: absolute;
+      margin-left: 40%;
+      width: 50%;
+  }
+  
+    table {
+      width: 100%;
+  }
+    #form_neu_anlegen{
+      border: 1px solid black;
+      width: 200px;
+  }
+      
+      </style>
+  
+</head>
+<body>
+    <div id="datepicker">
+        Von: <input type="text" id="datepicker_von">
+        Bis: <input type="text" id="datepicker_bis">
+    </div>
+ <div id="btn_personen_anzeigen">
+    <p> <button onclick="getPersonen()">Personen Anzeigen</button></p>
+    </div>
+    
+    <div id="tabelle_ausgabe">
+    
+    <table id="tablePersonen"
+  <tr>
+    <td>Name</td>
+    <td>Geburtstag</td>
+  </tr>
+</table>
+<br>
+    </div>
+    
+<div id="form_neu_anlegen">
+        <p>Neue Person Anlegen:</p>
+    
+     <form action="http://localhost:8080/api/personen" method="post" name="fileinfo">
+
+        Name:<br>
+            <input type="text" name="name" id="name" value="Peter"><br>
+        Tag:<br>
+            <input type="number" name="birthDay" id="birthDay" value="02" min="1" max="31"><br>
+        Monat:<br>
+            <input type="number" name="birthMonth" id="birthMonth" value="03" min="1" max="12"><br>
+        Jahr:<br>
+            <input type="number" name="birthYear" id="birthYear" value="2010" min="0"><br>
+    
+    </form> 
+    <button onclick="setPersonen()">Person Anlegen</button>
+    </div>    
+</body>
+    <script>
+  $( function() {
+    $( "#datepicker_von" ).datepicker();
+  } );
+  $( function() {
+    $( "#datepicker_bis" ).datepicker();
+  } );
+  </script>
+    
+    <script>
+function getPersonen() {
+    deleteTable();
+    var date_from = document.getElementById('datepicker_von').value;
+    
+    var parts =date_from.split('/');
+
+    var mydate_from = new Date(parseInt(parts[2]),parseInt(parts[0]-1),parseInt(parts[1]));
+    
+    var date_to = document.getElementById('datepicker_bis').value;
+        var parts1 =date_to.split('/');
+        //please put attention to the month (parts[0]), Javascript counts months from 0:
+        // January - 0, February - 1, etc
+    var mydate_to = new Date(parseInt(parts1[2]),parseInt(parts1[0]-1),parseInt(parts1[1]));
+    
+    if(date_from != "" && date_from !=""){
+        var xmlhttp, myObj, x, y, txt = "";
+        
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myObj = JSON.parse(this.responseText);
+
+                for (x in myObj) {
+                    
+                    var dateCheck = new Date(parseInt(myObj[x].gebJahr),parseInt(myObj[x].gebMonat-1),parseInt(myObj[x].gebTag));
+                    if(dateCheck.getTime() >= mydate_from.getTime() && dateCheck.getTime() <= mydate_to.getTime()){
+                    fillTable(myObj[x].name,myObj[x].gebTag +"."+myObj[x].gebMonat+" "+myObj[x].gebJahr);
+                    }
+            }
+            }
+        };
+    xmlhttp.open("GET", "http://localhost:8080/api/personen", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();     
+    }
+}
+        
+
+function setPersonen() {
+    var form = document.forms.namedItem("fileinfo");
+    var oData = new FormData(form);
+    var x = new XMLHttpRequest();
+        x.open( "POST", "http://localhost:8080/api/personen");
+        x.send(oData);
+}
+    
+    
+        
+function fillTable(name, date) {
+    
+    var table = document.getElementById("tablePersonen");
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = name;
+    cell2.innerHTML = date;
+    
+}
+
+function deleteTable(){
+    
+
+    var tableHeaderRowCount = 1;
+    var table = document.getElementById('tablePersonen');
+    var rowCount = table.rows.length;
+    for (var i = tableHeaderRowCount; i < rowCount; i++) {
+        table.deleteRow(tableHeaderRowCount);
+    }
+}
+    
+
+</script>
+</html>
