@@ -1,6 +1,6 @@
 # Uebungsprojekt Geburtstagskalender
 
-Dieses kleine Projekt wurde erstellt, um mich ein wenig in Swift (Vapor Backand Framework) ein zu arbeiten.
+Dieses kleine Projekt wurde erstellt, um mich ein wenig in Swift (Vapor Backand Framework) und Docker einzuarbeiten.
 
 ## 1. Was macht dieses Projekt?
 Dieses Pojekt beinhaltet: 
@@ -19,5 +19,7 @@ Dies passiert mit dem ausführen der jeweiligen buils-image.sh Datein ({Dein-Pro
 Nachdem unsere Images gebaut wurden können wir uns daraus Container erstellen und diese laufen lassen.
 Alles was man dafür tun muss, ist die jeweiligen run-docker.sh Datein starten ({Dein-Projekt-Pfad}/DB_Container und Dein-Projekt-Pfad}/Backend).
 
+NOTE: zuerst den DB_Container starten damit das Backend darauf zugreifen kann!
+
 # 3. Wie benutze ich dieses Projekt?
-Zur benutzung öffnet man einfach einene beliebugen Browser und geht auf [localhost:8080](localhost:8080)
+Zur benutzung öffnet man einfach einene beliebugen Browser und geht auf localhost:8080
