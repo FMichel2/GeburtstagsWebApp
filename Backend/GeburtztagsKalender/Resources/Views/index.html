@@ -82,7 +82,7 @@
     $( "#datepicker_von" ).datepicker({
       changeMonth: true,
       changeYear: false,
-      dateFormat: 'dd.mm'
+      dateFormat: 'dd/mm'
     
     });
   } );
@@ -90,7 +90,7 @@
     $( "#datepicker_bis" ).datepicker({
         changeMonth: true,
         changeYear: false,
-        dateFormat: 'dd.mm'
+        dateFormat: 'dd/mm'
     });
   } );
   </script>
@@ -100,15 +100,15 @@ function getPersonen() {
     deleteTable();
     var date_from = document.getElementById('datepicker_von').value;
     
-    var parts =date_from.split('.');
-
-    var mydate_from = new Date(0,parseInt(parts1[1]),parseInt(parts1[0]-1));
+    var parts =date_from.split('/');
+    
+    var mydate_from = new Date(2000,parseInt(parts[1]-1),parseInt(parts[0]));
     
     var date_to = document.getElementById('datepicker_bis').value;
         var parts1 =date_to.split('/');
         //please put attention to the month (parts[0]), Javascript counts months from 0:
         // January - 0, February - 1, etc
-    var mydate_to = new Date(0,parseInt(parts1[1]),parseInt(parts1[0]-1));
+    var mydate_to = new Date(2000,parseInt(parts1[1]-1),parseInt(parts1[0]));
     
     if(date_from != "" && date_from !=""){
         var xmlhttp, myObj, x, y, txt = "";
@@ -120,11 +120,12 @@ function getPersonen() {
 
                 for (x in myObj) {
                     
-                    var dateCheck = new Date(parseInt(myObj[x].gebJahr),parseInt(myObj[x].gebMonat-1),parseInt(myObj[x].gebTag));
+                    var dateCheck = new Date(2000,parseInt(myObj[x].gebMonat-1),parseInt(myObj[x].gebTag));
                     if(dateCheck.getTime() >= mydate_from.getTime() && dateCheck.getTime() <= mydate_to.getTime()){
                     fillTable(myObj[x].name,myObj[x].gebTag +"."+myObj[x].gebMonat+" "+myObj[x].gebJahr);
                     }
-            }
+                    console.log("DatePerson" + dateCheck.getTime() + "   DateFrom" + mydate_from.getTime() + "  DateTo" + mydate_to.getTime())
+                }
             }
         };
     xmlhttp.open("GET", "http://localhost:8080/api/personen", true);
