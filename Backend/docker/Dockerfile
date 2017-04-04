@@ -3,7 +3,12 @@ FROM swift
 RUN apt-get update
 
 # install vapor
-RUN curl -sL toolbox.qutheory.io | sh
+RUN apt-get -q install -y wget software-properties-common python-software-properties apt-transport-https
+RUN wget -q https://repo.vapor.codes/apt/keyring.gpg -O- | apt-key add -
+RUN apt-get -q update
+RUN apt-get update
+RUN apt-get install vapor
+
 RUN apt-get install libmysqlclient-dev -y
 RUN mkdir GebKalenderBackend
 
