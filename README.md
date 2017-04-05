@@ -23,3 +23,5 @@ NOTE: zuerst den DB_Container starten damit das Backend darauf zugreifen kann!
 
 # 3. Wie benutze ich dieses Projekt?
 Zur benutzung öffnet man einfach einene beliebugen Browser und geht auf localhost:8080
+
+![Alt text](/pictures_for_readme/main.jpg)
