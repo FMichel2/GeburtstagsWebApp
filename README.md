@@ -25,3 +25,12 @@ NOTE: zuerst den DB_Container starten damit das Backend darauf zugreifen kann!
 Zur benutzung öffnet man einfach einene beliebugen Browser und geht auf localhost:8080
 
 ![Startseite](/pictures_for_readme/main.png)
+
+Nun kann man auf der Rechten seite die Daten der Anzulegenden Person eingeben.
+Nach einem Klick auf "Person Anlegen" erscheint eine Meldung (wenn die Person erfolgreich gespeichert wurde)
+
+![Person Anlegen](/pictures_for_readme/person_anlegen.png)
+
+Will man sich Personen ausgeben lassen, die in einem bestimmtem zeitraum geburtstag haben, wählt man einfach ein anfangs Datum (Von:) und ein and Datum (Bis:) aus und klickt danach auf "Personen Anzeigen".
+Es werden alle Personen angezeigt die in dieser Zeitspanne Geburtstag haben.
+![Personen Anzeigen](/pictures_for_readme/personen_anzeigen.png)
