@@ -5,6 +5,10 @@ body {
     margin-top: 50px;
     margin-left: 40%;
 }
+
+.ui-datepicker-year{
+    display:none;
+}
 #btn_personen_anzeigen{
     margin-left: 50%;
     width: 50%;

@@ -16,6 +16,3 @@ name      | varchar(255)      | NO   |     | NULL    |
 gebTag    | int(11)           | NO   |     | NULL    |                
 gebMonat  | int(11)           | NO   |     | NULL    |                
 gebJahr   | int(11)           | NO   |     | NULL    |                
-
-
-
