@@ -58,6 +58,11 @@ function setPersonen() {
     var oData = new FormData(form);
     var x = new XMLHttpRequest();
     x.open( "POST", "http://localhost:8080/api/personen");
+    x.onreadystatechange = function() {//Call a function when the state changes.
+        if(x.readyState == 4 && x.status == 200) {
+            alert("Person wurde Gespeichert");
+        }
+    }
     x.send(oData);
 }
 

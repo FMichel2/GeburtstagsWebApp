@@ -20,6 +20,7 @@ final class Person: Model {
     var birthDay: Int
     var birthMonth: Int
     var birthYear: Int
+    var exists: Bool = false
     
     
     init(personID: Int, name: String, birthDay: Int, birthMonth: Int, birthYear: Int) {
